@@ -5,6 +5,7 @@ import com.javatechie.webflux.dto.Customer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 import java.util.List;
 
@@ -28,5 +29,9 @@ public class CustomerService {
         long end = System.currentTimeMillis();
         System.out.println("Total time taken for execution : " + (end - start));
         return customers;
+    }
+
+    public Mono<String> saveCustomer(Mono<Customer> customerMono) {
+        return customerDao.saveCustomer(customerMono);
     }
 }

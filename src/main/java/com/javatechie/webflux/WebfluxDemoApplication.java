@@ -5,10 +5,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 import java.util.List;
 
@@ -29,6 +28,11 @@ public class WebfluxDemoApplication {
 	@GetMapping(value = "/stream",produces = MediaType.TEXT_EVENT_STREAM_VALUE)
 	public Flux<Customer> getCustomersWithStream(){
 		return service.loadCustomersStream();
+	}
+
+	@PostMapping("/save")
+	public Mono<String> saveCustomer(@RequestBody Mono<Customer> customerMono){
+		return service.saveCustomer(customerMono);
 	}
 
 
